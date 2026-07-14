@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Tag from '../components/Tag.astro';
+
+const posts = (await getCollection('posts'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const monthLabels = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+
+interface MonthGroup {
+  label: string;
+  posts: typeof posts;
+}
+interface YearGroup {
+  year: number;
+  count: number;
+  months: MonthGroup[];
+}
+
+const yearGroups: YearGroup[] = [];
+for (const post of posts) {
+  const year = post.data.date.getFullYear();
+  const month = post.data.date.getMonth();
+
+  let yg = yearGroups.find(g => g.year === year);
+  if (!yg) {
+    yg = { year, count: 0, months: [] };
+    yearGroups.push(yg);
+  }
+  yg.count++;
+
+  const label = `${String(month + 1).padStart(2, '0')} — ${monthLabels[month]}`;
+  let mg = yg.months.find(m => m.label === label);
+  if (!mg) {
+    mg = { label, posts: [] };
+    yg.months.push(mg);
+  }
+  mg.posts.push(post);
+}
+
+const years = [...new Set(yearGroups.map(g => g.year))].sort((a, b) => b - a);
+
+function formatDate(date: Date) {
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${m}-${d}`;
+}
+---
+
+<BaseLayout title="归档" activeNav="archive">
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">归档</h1>
+      <p class="page-subtitle">共 {posts.length} 篇文章 · {years.length} 个年份</p>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn" data-active="true">全部</button>
+      {years.map(y => <button class="filter-btn">{y}</button>)}
+    </div>
+  </div>
+
+  <div class="archive-list">
+    {yearGroups.map(yearGroup => (
+      <article class="archive-year-card retro-raised retro-dither">
+        <div class="archive-year-header">
+          <Icon name="folder" size={18} />
+          <h2 class="archive-year-title">{yearGroup.year}</h2>
+          <span class="archive-count-badge">{yearGroup.count} 篇</span>
+        </div>
+
+        <div class="archive-month-group">
+          {yearGroup.months.map(month => (
+            <div>
+              <div class="archive-month-label">
+                <Icon name="file" size={12} />
+                <span>{month.label}</span>
+              </div>
+              <div class="archive-post-list">
+                {month.posts.map(post => (
+                  <a href={`/posts/${post.id}`} class="archive-post-row">
+                    <div class="archive-post-title">
+                      <Icon name="chevron-right" size={12} />
+                      <span class="archive-post-title-text">{post.data.title}</span>
+                    </div>
+                    <div class="archive-post-meta">
+                      <time class="archive-post-date">{formatDate(post.data.date)}</time>
+                      {post.data.tags.map(t => <Tag label={t} />)}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+export interface Props {
+  class?: string;
+  dither?: boolean;
+  raised?: boolean;
+  inset?: boolean;
+}
+
+const {
+  dither = true,
+  raised = true,
+  inset = false,
+} = Astro.props;
+
+const borderClass = raised ? 'retro-raised' : inset ? 'retro-inset' : '';
+const ditherClass = dither ? 'retro-dither' : '';
+---
+
+<article class={`p-4 ${borderClass} ${ditherClass} ${Astro.props.class || ''}`}
+  style="background:var(--card);color:var(--card-foreground);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);">
+  <slot />
+</article>

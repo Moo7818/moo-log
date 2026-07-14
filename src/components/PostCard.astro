@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import Tag from './Tag.astro';
+
+export interface Props {
+  title: string;
+  date: string;
+  excerpt: string;
+  tags: string[];
+  href: string;
+}
+const { title, date, excerpt, tags, href } = Astro.props;
+---
+
+<article class="post-card">
+  <div class="post-card-head">
+    <h3 class="post-card-title">{title}</h3>
+    <time class="post-card-date">
+      <Icon name="file" size={11} />
+      {date}
+    </time>
+  </div>
+  <p class="post-card-excerpt">{excerpt}</p>
+  <div class="post-card-footer">
+    <div class="post-card-tags">
+      {tags.map(t => <Tag label={t} />)}
+    </div>
+    <a href={href} class="read-link">
+      阅读全文
+      <Icon name="arrow-right" size={12} />
+    </a>
+  </div>
+</article>

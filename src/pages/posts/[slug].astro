@@ -1,0 +1,106 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import Tag from '../../components/Tag.astro';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts'))
+    .filter(p => !p.data.draft)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      prev: posts[i + 1] || null,
+      next: posts[i - 1] || null,
+    },
+  }));
+}
+
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+
+const dateStr = post.data.date.toISOString().slice(0, 10);
+const wordCount = post.body?.length ?? 0;
+const readingTime = Math.max(1, Math.ceil(wordCount / 400));
+---
+
+<BaseLayout title={post.data.title} activeNav="index">
+
+  <div class="reading-progress" id="reading-progress" style="width:0%;"></div>
+  <script is:inline>
+    const progress = document.getElementById('reading-progress');
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      progress.style.width = pct + '%';
+    });
+  </script>
+
+  <div class="article-header">
+    <h1 class="article-title">{post.data.title}</h1>
+    <div class="article-meta-bar">
+      <span class="article-meta-item"><Icon name="user" size={12} /> {post.data.author}</span>
+      <span class="article-meta-item"><Icon name="file" size={12} /> {dateStr}</span>
+      <span class="article-meta-item"><Icon name="file" size={12} /> {readingTime} 分钟阅读</span>
+      <span class="article-meta-item">
+        <Icon name="tag" size={12} />
+        {post.data.tags.map((t, i) => <span>{t}{i < post.data.tags.length - 1 ? ' /' : ''}</span>)}
+      </span>
+    </div>
+  </div>
+
+  <div class="article-grid">
+    <article class="article-body">
+      <Content />
+
+      <nav class="post-nav">
+        {prev ? (
+          <a href={`/posts/${prev.id}`} class="post-nav-link">
+            <span class="post-nav-label"><Icon name="arrow-left" size={10} /> 上一篇</span>
+            <span class="post-nav-title">{prev.data.title}</span>
+          </a>
+        ) : <span class="post-nav-link" style="visibility:hidden;" />}
+        {next ? (
+          <a href={`/posts/${next.id}`} class="post-nav-link">
+            <span class="post-nav-label">下一篇 <Icon name="arrow-right" size={10} /></span>
+            <span class="post-nav-title">{next.data.title}</span>
+          </a>
+        ) : <span class="post-nav-link" style="visibility:hidden;" />}
+      </nav>
+    </article>
+
+    <aside class="article-sidebar">
+      <div class="article-sidebar-inner">
+        <div class="sidebar-card retro-raised retro-dither">
+          <div class="sidebar-card-title">文章信息</div>
+          <div class="sidebar-meta-row">
+            <span class="sidebar-meta-label"><Icon name="user" size={14} /> 作者</span>
+            <span class="sidebar-meta-value">{post.data.author}</span>
+          </div>
+          <div class="sidebar-meta-row">
+            <span class="sidebar-meta-label"><Icon name="file" size={14} /> 日期</span>
+            <span class="sidebar-meta-value">{dateStr}</span>
+          </div>
+          <div class="sidebar-meta-row">
+            <span class="sidebar-meta-label"><Icon name="file" size={14} /> 阅读</span>
+            <span class="sidebar-meta-value">{readingTime} 分钟</span>
+          </div>
+          {post.data.tags.length > 0 && (
+            <div class="sidebar-tags">
+              {post.data.tags.map(t => <Tag label={t} />)}
+            </div>
+          )}
+        </div>
+
+        <a href="/archive" class="back-btn">
+          <Icon name="arrow-left" size={14} />
+          返回列表
+        </a>
+      </div>
+    </aside>
+  </div>
+
+</BaseLayout>

@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FlowChart from '../components/FlowChart.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout title="流程图演示" activeNav="index">
+
+  <h1 style="font-family:var(--font-pixel);font-size:28px;font-weight:700;letter-spacing:var(--tracking-normal);margin-bottom:8px;">流程图演示</h1>
+  <p style="font-size:13px;color:var(--muted-foreground);margin-bottom:32px;">FlowChart 组件 — 数据驱动，复用博客设计 Token</p>
+
+  <section style="margin-bottom:40px;">
+    <h2 style="text-transform:uppercase;font-weight:700;font-size:14px;color:var(--muted-foreground);letter-spacing:var(--tracking-normal);font-family:var(--font-pixel);margin-bottom:16px;">&gt; async_runtime_flow</h2>
+    <FlowChart
+      title="tokio 调度器 — 任务处理流程"
+      nodes={[
+        { x: 40, y: 55, label: 'Task 提交' },
+        { x: 230, y: 55, label: '全局队列' },
+        { x: 420, y: 55, label: '工作线程' },
+        { x: 490, y: 130, kind: 'diamond', label: '空闲?' },
+        { x: 580, y: 143, w: 50, h: 34, label: '执行' },
+        { x: 605, y: 245, kind: 'diamond', w: 70, h: 40, label: '完成?' },
+        { x: 600, y: 320, w: 80, h: 30, kind: 'terminal', label: 'DONE' },
+      ]}
+      edges={[
+        { from: [180, 77], to: [230, 77] },
+        { from: [370, 77], to: [420, 77] },
+        { from: [490, 120], to: [490, 130] },
+        { from: [440, 160], to: [230, 160], dashed: true, label: '任务窃取' },
+        { from: [540, 160], to: [580, 160] },
+        { from: [605, 177], to: [605, 240] },
+        { from: [570, 265], to: [300, 265], dashed: true, label: 'Pending 重新入队' },
+        { from: [640, 265], to: [640, 320] },
+      ]}
+    />
+  </section>
+
+  <section style="margin-bottom:40px;">
+    <h2 style="text-transform:uppercase;font-weight:700;font-size:14px;color:var(--muted-foreground);letter-spacing:var(--tracking-normal);font-family:var(--font-pixel);margin-bottom:16px;">&gt; system_arch</h2>
+    <FlowChart
+      title="图像处理管线 · 分层架构"
+      nodes={[
+        { x: 30, y: 45, w: 580, h: 44, label: '浏览器层  |  Canvas 2D · WebGL 纹理 · ImageData' },
+        { x: 30, y: 110, w: 580, h: 44, label: 'JS 桥接层  |  WebAssembly.instantiate() · 内存拷贝' },
+        { x: 30, y: 175, w: 580, h: 44, label: 'WASM 运行时  |  Rust → wasm-pack · 线性内存 · 无 GC', color: 'var(--accent, #0040ff)', dashed: true },
+        { x: 30, y: 240, w: 580, h: 44, label: '算法层  |  卷积核 · 高斯模糊 · Sobel 边缘检测 · 色彩矩阵' },
+      ]}
+      edges={[
+        { from: [320, 89], to: [320, 110] },
+        { from: [320, 154], to: [320, 175] },
+        { from: [320, 219], to: [320, 240] },
+      ]}
+    />
+  </section>
+
+  <section>
+    <h2 style="text-transform:uppercase;font-weight:700;font-size:14px;color:var(--muted-foreground);letter-spacing:var(--tracking-normal);font-family:var(--font-pixel);margin-bottom:16px;">&gt; sequence_diagram</h2>
+    <FlowChart
+      title="一致性哈希 — 读写请求路由流程"
+      nodes={[
+        { x: 50, y: 20, w: 100, h: 30, label: 'Client' },
+        { x: 270, y: 20, w: 100, h: 30, label: 'Proxy' },
+        { x: 490, y: 20, w: 100, h: 30, label: 'Node-01' },
+      ]}
+      edges={[
+        { from: [100, 75], to: [315, 75], label: 'GET /key/foo' },
+        { from: [320, 125], to: [535, 125], label: '转发请求' },
+        { from: [540, 150], to: [105, 150], dashed: true, label: '200 OK · value' },
+        { from: [100, 185], to: [315, 185], label: 'Node-01 宕机' },
+      ]}
+    />
+  </section>
+
+  <div class="retro-raised" style="margin-top:32px;padding:16px;border-color:var(--accent);background:var(--card);">
+    <p style="font-size:12px;color:var(--muted-foreground);">
+      <Icon name="tag" size={12} /> FlowChart 组件完整保留了 90s 终端美学：零圆角、等宽字体、扫描线背景。
+      所有颜色自动继承博客的 CSS 变量，亮/暗主题无需额外适配。
+    </p>
+  </div>
+
+</BaseLayout>

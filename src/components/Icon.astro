@@ -1,0 +1,12 @@
+---
+export interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+const { name, size = 16, class: className = '' } = Astro.props;
+---
+
+<span class={`icon ${className}`}
+  style={`width:${size}px;height:${size}px;-webkit-mask-image:url('/icons/${name}.svg');mask-image:url('/icons/${name}.svg');`}>
+</span>

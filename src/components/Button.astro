@@ -1,0 +1,42 @@
+---
+export interface Props {
+  href?: string;
+  variant?: 'primary' | 'muted' | 'accent';
+  class?: string;
+  icon?: string;
+}
+
+const { href, variant = 'primary', icon } = Astro.props;
+
+const bgMap = {
+  primary: 'var(--primary)',
+  muted: 'var(--muted)',
+  accent: 'var(--accent)',
+};
+const colorMap = {
+  primary: 'var(--primary-foreground)',
+  muted: 'var(--foreground)',
+  accent: 'var(--accent-foreground)',
+};
+const borderMap = {
+  primary: 'transparent',
+  muted: 'var(--ring)',
+  accent: 'transparent',
+};
+
+const styleStr = `background:${bgMap[variant]};color:${colorMap[variant]};border-color:${borderMap[variant]};`;
+---
+
+{
+  href ? (
+    <a href={href} class={`btn retro-raised ${Astro.props.class || ''}`} style={styleStr}>
+      {icon && <span class="btn-icon" style={`-webkit-mask-image:url(${icon});mask-image:url(${icon});`} />}
+      <slot />
+    </a>
+  ) : (
+    <button class={`btn retro-raised ${Astro.props.class || ''}`} style={styleStr}>
+      {icon && <span class="btn-icon" style={`-webkit-mask-image:url(${icon});mask-image:url(${icon});`} />}
+      <slot />
+    </button>
+  )
+}

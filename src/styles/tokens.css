@@ -1,0 +1,118 @@
+/* 21th Design Library Tokens — extracted from project-shell.html */
+
+/* Light theme tokens */
+:root {
+  --background: oklch(0.8328 0.0044 197.0717);
+  --foreground: oklch(0.1776 0 0);
+  --card: oklch(0.8868 0.0022 197.1175);
+  --card-foreground: oklch(0.1776 0 0);
+  --popover: oklch(0.8868 0.0022 197.1175);
+  --popover-foreground: oklch(0.1776 0 0);
+  --primary: oklch(0.1776 0 0);
+  --primary-foreground: oklch(1.0000 0 0);
+  --secondary: oklch(0.1776 0 0);
+  --secondary-foreground: oklch(1.0000 0 0);
+  --muted: oklch(0.8868 0.0022 197.1175);
+  --muted-foreground: oklch(0.6268 0 0);
+  --accent: oklch(0.5011 0.2803 263.8212);
+  --accent-foreground: oklch(1.0000 0 0);
+  --destructive: oklch(0.5787 0.2005 26.1521);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(1.0000 0 0);
+  --input: oklch(1.0000 0 0);
+  --ring: oklch(0 0 0);
+
+  /* Chart colors */
+  --chart-1: oklch(0.5012 0.2803 263.8733);
+  --chart-2: oklch(0.5816 0.2280 265.4658);
+  --chart-3: oklch(0.6785 0.1688 267.8633);
+  --chart-4: oklch(0.7653 0.1192 269.2317);
+  --chart-5: oklch(0.8531 0.0721 270.9681);
+
+  /* Sidebar */
+  --sidebar: oklch(0.8868 0.0022 197.1175);
+  --sidebar-foreground: oklch(0 0 0);
+  --sidebar-primary: oklch(0 0 0);
+  --sidebar-primary-foreground: oklch(1.0000 0 0);
+  --sidebar-accent: oklch(0.8328 0.0044 197.0717);
+  --sidebar-accent-foreground: oklch(0 0 0);
+  --sidebar-border: oklch(1.0000 0 0);
+  --sidebar-ring: oklch(0 0 0);
+
+  /* Typography */
+  --font-sans: Geist Mono, ui-monospace, monospace;
+  --font-serif: Geist, ui-sans-serif, sans-serif, system-ui;
+  --font-mono: Geist Mono, ui-monospace, monospace;
+  --font-pixel: 'VT323', 'Geist Mono', ui-monospace, monospace;
+
+  /* Radius & Shadow */
+  --radius: 0rem;
+  --shadow-x: 2px;
+  --shadow-y: 2px;
+  --shadow-blur: 0px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 1;
+  --shadow-color: oklch(0 0 0);
+  --shadow-2xs: 2px 2px 0px 0px hsl(0 0% 0% / 0.50);
+  --shadow-xs: 2px 2px 0px 0px hsl(0 0% 0% / 0.50);
+  --shadow-sm: 2px 2px 0px 0px hsl(0 0% 0% / 1.00), 2px 1px 2px -1px hsl(0 0% 0% / 1.00);
+  --shadow: 2px 2px 0px 0px hsl(0 0% 0% / 1.00), 2px 1px 2px -1px hsl(0 0% 0% / 1.00);
+  --shadow-md: 2px 2px 0px 0px hsl(0 0% 0% / 1.00), 2px 2px 4px -1px hsl(0 0% 0% / 1.00);
+  --shadow-lg: 2px 2px 0px 0px hsl(0 0% 0% / 1.00), 2px 4px 6px -1px hsl(0 0% 0% / 1.00);
+  --shadow-xl: 2px 2px 0px 0px hsl(0 0% 0% / 1.00), 2px 8px 10px -1px hsl(0 0% 0% / 1.00);
+  --shadow-2xl: 2px 2px 0px 0px hsl(0 0% 0% / 2.50);
+
+  /* Layout */
+  --tracking-normal: -0.05em;
+  --spacing: 0.25rem;
+}
+
+/* Dark theme tokens */
+.dark {
+  --background: oklch(0.1448 0 0);
+  --foreground: oklch(1.0000 0 0);
+  --card: oklch(0.2178 0 0);
+  --card-foreground: oklch(1.0000 0 0);
+  --popover: oklch(0.2178 0 0);
+  --popover-foreground: oklch(1.0000 0 0);
+  --primary: oklch(1.0000 0 0);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.3211 0 0);
+  --secondary-foreground: oklch(1.0000 0 0);
+  --muted: oklch(0.3211 0 0);
+  --muted-foreground: oklch(0.7380 0 0);
+  --accent: oklch(0.2520 0 0);
+  --accent-foreground: oklch(1.0000 0 0);
+  --destructive: oklch(0.6368 0.2078 25.3313);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.3211 0 0);
+  --input: oklch(0.2178 0 0);
+  --ring: oklch(0.3211 0 0);
+
+  --chart-1: oklch(0.7137 0.1434 254.6240);
+  --chart-2: oklch(0.7253 0.1752 349.7607);
+  --chart-3: oklch(0.7729 0.1535 163.2231);
+  --chart-4: oklch(0.8369 0.1644 84.4286);
+  --chart-5: oklch(0.6801 0.1583 276.9349);
+
+  --sidebar: oklch(0.1448 0 0);
+  --sidebar-foreground: oklch(1.0000 0 0);
+  --sidebar-primary: oklch(1.0000 0 0);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.2520 0 0);
+  --sidebar-accent-foreground: oklch(1.0000 0 0);
+  --sidebar-border: oklch(0.3211 0 0);
+  --sidebar-ring: oklch(0.3211 0 0);
+
+  --shadow-color: oklch(0 0 0);
+}
+
+/* Base styles */
+* {
+  border-color: var(--border);
+}
+body {
+  background: var(--background);
+  color: var(--foreground);
+  letter-spacing: var(--tracking-normal);
+}

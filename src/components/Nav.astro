@@ -1,0 +1,17 @@
+---
+export interface Props {
+  activeKey?: 'index' | 'archive';
+}
+const { activeKey = 'index' } = Astro.props;
+---
+
+<nav class="nav">
+  <a href="/" class="nav-brand">
+    <span class="nav-brand-dot"></span>
+    <span>moo.log</span>
+  </a>
+  <div class="nav-links">
+    <a href="/" class="nav-link" data-active={activeKey === 'index' ? 'true' : 'false'}>首页</a>
+    <a href="/archive" class="nav-link" data-active={activeKey === 'archive' ? 'true' : 'false'}>归档</a>
+  </div>
+</nav>

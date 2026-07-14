@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import PostCard from '../components/PostCard.astro';
+
+const posts = (await getCollection('posts'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const tagCount = new Set(posts.flatMap(p => p.data.tags)).size;
+
+function formatDate(date: Date) {
+  return date.toISOString().slice(0, 10);
+}
+---
+
+<BaseLayout title="首页" activeNav="index">
+
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('/assets/hero-terminal.jpg');"></div>
+    <div class="hero-scanlines"></div>
+
+    <div class="hero-grid">
+      <div class="hero-left">
+        <p class="hero-eyebrow">SYS.INIT // v2.4.1</p>
+        <h1 class="hero-title phosphor-blue">moo.log<span class="cursor-blink">_</span></h1>
+        <p class="hero-subtitle">技术笔记 / 随想记录</p>
+        <div class="hero-search">
+          <label class="search-input">
+            <i data-lucide="search" style="width:14px;height:14px;color:var(--muted-foreground);flex-shrink:0;"></i>
+            <input type="text" placeholder="搜索文章..." />
+          </label>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="stat-card retro-raised retro-dither">
+          <span class="stat-label">文章总数</span>
+          <strong class="stat-value">{posts.length}</strong>
+        </div>
+        <div class="stat-card retro-raised retro-dither">
+          <span class="stat-label">标签分类</span>
+          <strong class="stat-value">{tagCount}</strong>
+        </div>
+        <div class="stat-card retro-raised retro-dither">
+          <span class="stat-label">运行状态</span>
+          <strong class="stat-value pulse-glow phosphor-green" style="color:var(--chart-1);">ACTIVE</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <h2 class="section-title">最新文章</h2>
+      <a href="/archive" class="section-link">
+        查看全部
+        <Icon name="arrow-right" size={12} />
+      </a>
+    </div>
+    <div class="post-card-grid">
+      {posts.map(post => (
+        <PostCard
+          title={post.data.title}
+          date={formatDate(post.data.date)}
+          excerpt={post.data.excerpt}
+          tags={post.data.tags}
+          href={`/posts/${post.id}`}
+        />
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>
