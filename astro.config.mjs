@@ -8,7 +8,7 @@ export default defineConfig({
   site: isGitHubPages ? 'https://moo7818.github.io' : 'https://moo7818.cc.cd',
   base: isGitHubPages ? '/moo-log/' : '/',
   build: {
-    format: 'file',
+    format: 'directory',
   },
   integrations: [mdx()],
 });
