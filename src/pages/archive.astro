@@ -6,7 +6,11 @@ import Tag from '../components/Tag.astro';
 
 const posts = (await getCollection('posts'))
   .filter(p => !p.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  .sort((a, b) => {
+    const dateDiff = b.data.date.getTime() - a.data.date.getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return b.id.localeCompare(a.id);
+  });
 
 const monthLabels = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 

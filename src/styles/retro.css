@@ -959,3 +959,283 @@ body::before {
   height: 14px;
   width: 14px;
 }
+
+/* === 17. Article Extended Styles === */
+
+/* Table */
+.article-body .table-wrap {
+  overflow-x: auto;
+  margin: var(--spacing-md) 0;
+  border: 1px solid var(--border-visible);
+  box-shadow: var(--shadow);
+}
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 500px;
+}
+.article-body thead {
+  background: var(--primary);
+}
+.article-body th {
+  text-align: left;
+  padding: 8px 12px;
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-foreground);
+  border-bottom: 2px solid var(--border-strong);
+  white-space: nowrap;
+}
+.article-body td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-visible);
+  color: var(--foreground);
+  vertical-align: top;
+}
+.article-body tbody tr:hover {
+  background: var(--muted);
+}
+.article-body tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Mermaid diagram container */
+.article-body .article-diagram {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg) var(--spacing-md);
+  background: var(--card);
+  border: 1px solid var(--border-visible);
+  box-shadow: var(--shadow);
+  text-align: center;
+  overflow-x: auto;
+}
+.article-body .article-diagram .mermaid {
+  display: flex;
+  justify-content: center;
+  min-height: 100px;
+}
+.article-body .article-diagram figcaption {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--muted-foreground);
+  margin-top: var(--spacing-md);
+  letter-spacing: 0.05em;
+}
+
+/* Callout */
+.article-body .article-callout {
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--card);
+  border-left: 4px solid var(--accent);
+  border: 1px solid var(--border-visible);
+  border-left-width: 4px;
+  border-left-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+.article-body .article-callout .callout-title {
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.article-body .article-callout p:last-child {
+  margin: 0;
+}
+.article-body .article-callout.callout-warn {
+  border-left-color: oklch(0.70 0.15 70);
+}
+.article-body .article-callout.callout-warn .callout-title {
+  color: oklch(0.55 0.15 70);
+}
+
+/* Stat row */
+.article-body .article-stats {
+  display: flex;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  flex-wrap: wrap;
+}
+.article-body .article-stat {
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+  padding: var(--spacing-md);
+  background: var(--card);
+  border: 1px solid var(--border-visible);
+  box-shadow: var(--shadow);
+}
+.article-body .article-stat-num {
+  font-family: var(--font-pixel);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.article-body .article-stat-label {
+  font-size: 11px;
+  color: var(--muted-foreground);
+  margin-top: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Card grid */
+.article-body .article-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md) 0;
+}
+@media (min-width: 640px) {
+  .article-body .article-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.article-body .article-card {
+  padding: var(--spacing-md);
+  background: var(--card);
+  border: 1px solid var(--border-visible);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.article-body .article-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 0 var(--primary);
+}
+.article-body .article-card .card-tag {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--spacing-xs);
+}
+.article-body .article-card h4 {
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-xs) 0;
+  color: var(--foreground);
+}
+.article-body .article-card p {
+  font-size: 13px;
+  color: var(--muted-foreground);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Section number label */
+.article-body .section-num {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Mermaid retro/Win95 styling overrides */
+.article-body .mermaid svg {
+  height: auto;
+}
+
+/* Node boxes: Win95-style solid borders */
+.article-body .mermaid .node rect,
+.article-body .mermaid .node polygon {
+  stroke-width: 2px !important;
+  stroke: #000 !important;
+  rx: 0 !important;
+  ry: 0 !important;
+}
+
+/* Node text: monospace, bold for readability */
+.article-body .mermaid .node .nodeLabel,
+.article-body .mermaid .node text,
+.article-body .mermaid .node span {
+  font-family: ui-monospace, "Geist Mono", monospace !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #000 !important;
+}
+
+/* Subgraph/cluster boxes: Win95 sunken border feel */
+.article-body .mermaid .cluster rect {
+  stroke: #606060 !important;
+  stroke-width: 2px !important;
+  rx: 0 !important;
+  ry: 0 !important;
+}
+
+/* Cluster labels */
+.article-body .mermaid .cluster .clusterLabel,
+.article-body .mermaid .cluster text {
+  font-family: ui-monospace, "Geist Mono", monospace !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  fill: #000 !important;
+}
+
+/* Edge/connection lines */
+.article-body .mermaid .edgePath path,
+.article-body .mermaid .flowchart-link {
+  stroke: #404040 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Arrowheads */
+.article-body .mermaid .marker,
+.article-body .mermaid marker path {
+  fill: #404040 !important;
+  stroke: #404040 !important;
+}
+
+/* Edge labels */
+.article-body .mermaid .edgeLabel,
+.article-body .mermaid .edgeLabel rect,
+.article-body .mermaid .edgeLabel text {
+  font-family: ui-monospace, "Geist Mono", monospace !important;
+  font-size: 12px !important;
+  fill: #000 !important;
+}
+
+/* Decision diamond text */
+.article-body .mermaid .node[id*="CHECK"],
+.article-body .mermaid .node[id*="MULTI"],
+.article-body .mermaid .node[id*="PROJECT"],
+.article-body .mermaid .node[id*="E4"] {
+  fill: #c0c0c0 !important;
+}
+
+/* Sequence diagram actors */
+.article-body .mermaid .actor {
+  stroke: #000 !important;
+  stroke-width: 2px !important;
+}
+.article-body .mermaid .actor text,
+.article-body .mermaid text.actor {
+  font-family: ui-monospace, "Geist Mono", monospace !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  fill: #000 !important;
+}
+
+/* Sequence diagram message labels */
+.article-body .mermaid .messageText {
+  font-family: ui-monospace, "Geist Mono", monospace !important;
+  font-size: 13px !important;
+  fill: #000 !important;
+}
+
+/* Sequence diagram note boxes */
+.article-body .mermaid .note {
+  stroke: #000 !important;
+  stroke-width: 2px !important;
+}
+
+/* Sequence diagram loop boxes */
+.article-body .mermaid .label {
+  font-family: ui-monospace, "Geist Mono", monospace !important;
+}

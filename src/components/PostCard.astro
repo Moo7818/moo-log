@@ -12,7 +12,7 @@ export interface Props {
 const { title, date, excerpt, tags, href } = Astro.props;
 ---
 
-<article class="post-card">
+<article class="post-card" data-title={title.toLowerCase()} data-excerpt={excerpt.toLowerCase()} data-tags={tags.join(',').toLowerCase()}>
   <div class="post-card-head">
     <h3 class="post-card-title">{title}</h3>
     <time class="post-card-date">
