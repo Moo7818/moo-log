@@ -1,9 +1,0 @@
----
-// Mermaid.astro - 安全渲染 Mermaid 图表
-// 通过 set:html 避免 MDX 对图表语法的干扰
-interface Props {
-  code: string;
-}
-const { code } = Astro.props;
----
-<div class="mermaid" set:html={code}></div>

@@ -6,11 +6,7 @@ import PostCard from '../components/PostCard.astro';
 
 const posts = (await getCollection('posts'))
   .filter(p => !p.data.draft)
-  .sort((a, b) => {
-    const dateDiff = b.data.date.getTime() - a.data.date.getTime();
-    if (dateDiff !== 0) return dateDiff;
-    return b.id.localeCompare(a.id);
-  });
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 const tagCount = new Set(posts.flatMap(p => p.data.tags)).size;
 
@@ -22,7 +18,7 @@ function formatDate(date: Date) {
 <BaseLayout title="首页" activeNav="index">
 
   <section class="hero">
-    <div class="hero-bg" style={`background-image:url('${import.meta.env.BASE_URL}assets/hero-terminal.jpg');`}></div>
+    <div class="hero-bg" style="background-image:url('/assets/hero-terminal.jpg');"></div>
     <div class="hero-scanlines"></div>
 
     <div class="hero-grid">
@@ -33,7 +29,7 @@ function formatDate(date: Date) {
         <div class="hero-search">
           <label class="search-input">
             <i data-lucide="search" style="width:14px;height:14px;color:var(--muted-foreground);flex-shrink:0;"></i>
-            <input type="text" id="post-search" placeholder="搜索文章..." />
+            <input type="text" placeholder="搜索文章..." />
           </label>
         </div>
       </div>
@@ -58,7 +54,7 @@ function formatDate(date: Date) {
   <section>
     <div class="section-header">
       <h2 class="section-title">最新文章</h2>
-      <a href={import.meta.env.BASE_URL + "archive"} class="section-link">
+      <a href="/archive" class="section-link">
         查看全部
         <Icon name="arrow-right" size={12} />
       </a>
@@ -70,52 +66,10 @@ function formatDate(date: Date) {
           date={formatDate(post.data.date)}
           excerpt={post.data.excerpt}
           tags={post.data.tags}
-          href={`${import.meta.env.BASE_URL}posts/${post.id}`}
+          href={`/posts/${post.id}`}
         />
       ))}
     </div>
   </section>
 
 </BaseLayout>
-
-<script is:inline>
-  (function() {
-    var input = document.getElementById('post-search');
-    if (!input) return;
-    var cards = document.querySelectorAll('.post-card');
-    var emptyMsg = null;
-
-    input.addEventListener('input', function() {
-      var query = input.value.trim().toLowerCase();
-      var visibleCount = 0;
-
-      cards.forEach(function(card) {
-        var title = card.getAttribute('data-title') || '';
-        var excerpt = card.getAttribute('data-excerpt') || '';
-        var tags = card.getAttribute('data-tags') || '';
-        var match = !query || title.indexOf(query) !== -1 || excerpt.indexOf(query) !== -1 || tags.indexOf(query) !== -1;
-
-        if (match) {
-          card.style.display = '';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      if (query && visibleCount === 0) {
-        if (!emptyMsg) {
-          emptyMsg = document.createElement('p');
-          emptyMsg.className = 'search-empty';
-          emptyMsg.textContent = '没有找到匹配的文章';
-          emptyMsg.style.cssText = 'text-align:center;color:var(--muted-foreground);padding:2rem;font-size:14px;';
-          var grid = document.querySelector('.post-card-grid');
-          if (grid) grid.appendChild(emptyMsg);
-        }
-        emptyMsg.style.display = '';
-      } else if (emptyMsg) {
-        emptyMsg.style.display = 'none';
-      }
-    });
-  })();
-</script>

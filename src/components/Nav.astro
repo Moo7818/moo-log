@@ -6,12 +6,12 @@ const { activeKey = 'index' } = Astro.props;
 ---
 
 <nav class="nav">
-  <a href={import.meta.env.BASE_URL} class="nav-brand">
+  <a href="/" class="nav-brand">
     <span class="nav-brand-dot"></span>
     <span>moo.log</span>
   </a>
   <div class="nav-links">
-    <a href={import.meta.env.BASE_URL} class="nav-link" data-active={activeKey === 'index' ? 'true' : 'false'}>首页</a>
-    <a href={import.meta.env.BASE_URL + "archive"} class="nav-link" data-active={activeKey === 'archive' ? 'true' : 'false'}>归档</a>
+    <a href="/" class="nav-link" data-active={activeKey === 'index' ? 'true' : 'false'}>首页</a>
+    <a href="/archive" class="nav-link" data-active={activeKey === 'archive' ? 'true' : 'false'}>归档</a>
   </div>
 </nav>
