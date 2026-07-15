@@ -58,13 +58,13 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 400));
 
       <nav class="post-nav">
         {prev ? (
-          <a href={`/posts/${prev.id}`} class="post-nav-link">
+          <a href={`${import.meta.env.BASE_URL}posts/${prev.id}`} class="post-nav-link">
             <span class="post-nav-label"><Icon name="arrow-left" size={10} /> 上一篇</span>
             <span class="post-nav-title">{prev.data.title}</span>
           </a>
         ) : <span class="post-nav-link" style="visibility:hidden;" />}
         {next ? (
-          <a href={`/posts/${next.id}`} class="post-nav-link">
+          <a href={`${import.meta.env.BASE_URL}posts/${next.id}`} class="post-nav-link">
             <span class="post-nav-label">下一篇 <Icon name="arrow-right" size={10} /></span>
             <span class="post-nav-title">{next.data.title}</span>
           </a>
@@ -95,7 +95,7 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 400));
           )}
         </div>
 
-        <a href="/archive" class="back-btn">
+        <a href={import.meta.env.BASE_URL + "archive"} class="back-btn">
           <Icon name="arrow-left" size={14} />
           返回列表
         </a>

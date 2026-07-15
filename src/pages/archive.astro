@@ -85,7 +85,7 @@ function formatDate(date: Date) {
               </div>
               <div class="archive-post-list">
                 {month.posts.map(post => (
-                  <a href={`/posts/${post.id}`} class="archive-post-row">
+                  <a href={`${import.meta.env.BASE_URL}posts/${post.id}`} class="archive-post-row">
                     <div class="archive-post-title">
                       <Icon name="chevron-right" size={12} />
                       <span class="archive-post-title-text">{post.data.title}</span>
